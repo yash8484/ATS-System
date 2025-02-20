@@ -5,50 +5,62 @@ import PyPDF2 as pdf
 from dotenv import load_dotenv
 import json
 
-load_dotenv() ## load all our environment variables
+# Load environment variables
+load_dotenv()
 
+# Configure Google Gemini AI
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-def get_gemini_repsonse(input):
-    model=genai.GenerativeModel('gemini-pro')
-    response=model.generate_content(input)
-    return response.text
+# Function to get AI response
+def get_gemini_response(input_text):
+    model = genai.GenerativeModel('gemini-pro')
+    response = model.generate_content(input_text)
+    
+    try:
+        # Ensure valid JSON output
+        json_response = json.loads(response.text)
+    except json.JSONDecodeError:
+        st.error("❌ Error: Received an invalid JSON response. Please check AI output format.")
+        return None  # Return None if JSON parsing fails
 
+    return json_response
+
+# Function to extract text from PDF
 def input_pdf_text(uploaded_file):
-    reader=pdf.PdfReader(uploaded_file)
-    text=""
-    for page in range(len(reader.pages)):
-        page=reader.pages[page]
-        text+=str(page.extract_text())
+    reader = pdf.PdfReader(uploaded_file)
+    text = ""
+    for page in reader.pages:
+        text += str(page.extract_text())
     return text
 
-#Prompt Template
+# AI Prompt Template
+input_prompt = """
+Hey, act as an **advanced ATS (Applicant Tracking System)** with deep expertise in:
+- **Software Engineering**
+- **Data Science**
+- **Data Analytics**
+- **Big Data Engineering**
 
-input_prompt="""
-Hey Act Like a skilled or very experience ATS(Application Tracking System)
-with a deep understanding of tech field,software engineering,data science ,data analyst
-and big data engineer. Your task is to evaluate the resume based on the given job description.
-You must consider the job market is very competitive and you should provide 
-best assistance for improving thr resumes. Assign the percentage Matching based 
-on Jd and
-the missing keywords with high accuracy
-resume:{text}
-description:{jd}
+### **Your Task**:
+Analyze the following resume based on the given job description. The job market is highly competitive, so provide **precise and actionable feedback** to improve the resume’s ATS score.
 
-I want the response in one single string having the structure
-{{"JD Match":"%","MissingKeywords:[]","Profile Summary":""}}
-"""
+---
 
-## streamlit app
-st.title("Smart ATS")
-st.text("Improve Your Resume ATS")
-jd=st.text_area("Paste the Job Description")
-uploaded_file=st.file_uploader("Upload Your Resume",type="pdf",help="Please uplaod the pdf")
+### **🔍 Evaluation Criteria:**
+🔹 **JD Match Percentage** – Calculate how well the resume matches the job description (**0-100%**).  
+🔹 **Missing Keywords** – List important **keywords/skills missing** that would improve ATS compatibility.  
+🔹 **Profile Summary & Improvement Suggestions** – Provide a **detailed analysis** covering:
+   - Key **strengths** of the resume in relation to the job description.
+   - **Weaknesses** that might cause rejection by an ATS.
+   - **Actionable suggestions** to optimize the resume for **better ATS scoring**.
 
-submit = st.button("Submit")
+---
 
-if submit:
-    if uploaded_file is not None:
-        text=input_pdf_text(uploaded_file)
-        response=get_gemini_repsonse(input_prompt)
-        st.subheader(response)
+### **📌 Response Format (Strictly Follow This)**
+Return the response **only in valid JSON format** like below:
+```json
+{{
+  "JD Match": "XX%", 
+  "MissingKeywords": ["Keyword1", "Keyword2", "Keyword3"],
+  "Profile Summary": "Detailed resume analysis."
+}}
