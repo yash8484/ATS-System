@@ -40,9 +40,9 @@ Analyze the following resume based on the given job description. The job market 
 🔹 **JD Match Percentage** – Calculate how well the resume matches the job description (**0-100%**).  
 🔹 **Missing Keywords** – List important **keywords/skills missing** that would improve ATS compatibility.  
 🔹 **Profile Summary & Improvement Suggestions** – Provide a **detailed analysis** covering:
-   - Key **strengths** of the resume in relation to the job description.
+   - Key **strengths** of the given resume and job description.
    - **Weaknesses** that might cause rejection by an ATS.
-   - **Actionable suggestions** to optimize the resume for **better ATS scoring**.
+   - **Actionable suggestions** to optimize the resume for **better ATS scoring for given JD**.
 
 ---
 ### **📌 Response Format (Strictly Follow This)**
