@@ -23,47 +23,23 @@ def input_pdf_text(uploaded_file):
     return text
 
 #Prompt Template
-
 input_prompt="""
-Hey, act as an **advanced ATS (Applicant Tracking System) specialist** with deep expertise in:
-- **Technical fields**
-- **Software Engineering**
-- **Data Science**
-- **Data Analytics**
-- **Big Data Engineering**
-
-### **Your Task**:
-Analyze the following resume based on the given job description. The job market is highly competitive, so provide **precise and actionable feedback** to improve the resume’s ATS score.
-
----
-   🔹 **Strengths Section Modification**  
-- Clearly **list the strengths** that are present in the resume and align with the JD.  
-- Identify **missing but important strengths** based on the JD and suggest ways to include them.  
-- If a relevant skill is missing, suggest **how the candidate can demonstrate it** (e.g., through coursework, certifications, or projects).  
-- Provide **resume improvement suggestions** specifically focused on adding **hidden strengths** that align with the JD.  
-
-
----
-### **📌 Response Format (Strictly Follow This)**
-Use **bold headings** for each section.  
-**Keep it structured, concise, and highly analytical.**  
-**Do NOT add unnecessary explanations.**  
-
----
-### ** Resume for Evaluation:**
-{text}
-
-### ** Job Description:**
-{jd}
+Hey Act Like a skilled or very experienced ATS(Application Tracking System)
+with a deep understanding of the tech field, software engineering, data science, data analysis
+and big data engineering. Your task is to evaluate the resume based on the given job description.
+You must consider the job market is very competitive and you should provide the 
+best assistance for improving their resumes. Assign the percentage Matching based 
+on Jd and
+the missing keywords with high accuracy
+resume:{text}
+description:{jd}
 
 I want the response in this structure
-
 "JD Match":"%",
 
 "MissingKeywords:[]",
 
-"Profile Summary":""}}
-
+"Profile Summary":""
 
 
 """
