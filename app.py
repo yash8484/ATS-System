@@ -63,4 +63,4 @@ Return the response **only in valid JSON format** like below:
   "JD Match": "XX%", 
   "MissingKeywords": ["Keyword1", "Keyword2", "Keyword3"],
   "Profile Summary": "Detailed resume analysis."
-}}
+}}"""
