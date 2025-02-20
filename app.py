@@ -24,8 +24,7 @@ def input_pdf_text(uploaded_file):
 
 #Prompt Template
 
- prompt_template = """
-    Act as an **advanced ATS (Applicant Tracking System) specialist** with deep expertise in:
+ prompt_template = """Act as an **advanced ATS (Applicant Tracking System) specialist** with deep expertise in:
 - **Technical fields**
 - **Software engineering**
 - **Data science**
@@ -51,9 +50,7 @@ Return the output **strictly as a JSON object** (without extra text, explanation
     "JD Match": "XX%", 
     "MissingKeywords": ["Keyword1", "Keyword2", "Keyword3"],
     "Profile Summary": "Comprehensive evaluation of strengths, weaknesses, and improvements."
-}}
-
-    """
+}}"""
 
 ## streamlit app
 st.title("Smart ATS")
