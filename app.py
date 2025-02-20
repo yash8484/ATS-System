@@ -36,13 +36,12 @@ Hey, act as an **advanced ATS (Applicant Tracking System) specialist** with deep
 Analyze the following resume based on the given job description. The job market is highly competitive, so provide **precise and actionable feedback** to improve the resume’s ATS score.
 
 ---
-### **🔍 Evaluation Criteria:**
-🔹 **JD Match Percentage** – Calculate how well the resume matches the job description (**0-100%**).  
-🔹 **Missing Keywords** – List important **keywords/skills missing** that would improve ATS compatibility.  
-🔹 **Profile Summary & Improvement Suggestions** – Provide a **detailed analysis** covering:
-   - Key **strengths** of the given resume for given job description.
-   - **Weaknesses** that might cause rejection by an ATS.
-   - **Actionable suggestions** to optimize the resume for **better ATS scoring for given JD**.
+   🔹 **Strengths Section Modification**  
+- Clearly **list the strengths** that are present in the resume and align with the JD.  
+- Identify **missing but important strengths** based on the JD and suggest ways to include them.  
+- If a relevant skill is missing, suggest **how the candidate can demonstrate it** (e.g., through coursework, certifications, or projects).  
+- Provide **resume improvement suggestions** specifically focused on adding **hidden strengths** that align with the JD.  
+
 
 ---
 ### **📌 Response Format (Strictly Follow This)**
