@@ -24,25 +24,36 @@ def input_pdf_text(uploaded_file):
 
 #Prompt Template
 
-input_prompt="""
-Hey Act Like a skilled or very experience ATS(Application Tracking System)
-with a deep understanding of tech field,software engineering,data science ,data analyst
-and big data engineer. Your task is to evaluate the resume based on the given job description.
-You must consider the job market is very competitive and you should provide 
-best assistance for improving thr resumes. Assign the percentage Matching based 
-on Jd and
-the missing keywords with high accuracy
-resume:{text}
-description:{jd}
+ prompt_template = """
+    Act as an **advanced ATS (Applicant Tracking System) specialist** with deep expertise in:
+- **Technical fields**
+- **Software engineering**
+- **Data science**
+- **Data analysis**
+- **Big data engineering**
 
-I want the response in such structure
+### **🔍 Your Task**
+Analyze the provided resume against the given job description (JD). The job market is highly competitive, so your evaluation must be **accurate and actionable**.
 
-"JD Match":"%",   
+### **📌 Evaluation Criteria**
+1️⃣ **JD Match Percentage** – Calculate how well the resume aligns with the job description (**0-100%**).  
+2️⃣ **Missing Keywords** – Identify **critical keywords and technical skills missing** from the resume but present in the JD.  
+3️⃣ **Profile Summary & Resume Improvement Suggestions** – Provide a **detailed, structured analysis** covering:
+   - Key **strengths** of the resume in relation to the JD.
+   - **Weaknesses and potential ATS rejection reasons**.
+   - **Actionable, specific recommendations** to optimize the resume for **higher ATS scoring**.
 
-"MissingKeywords:[]",
+### **📌 Response Format**
+Return the output **strictly as a JSON object** (without extra text, explanations, or formatting issues):
 
-"Profile Summary":""
-"""
+```json
+{{
+    "JD Match": "XX%", 
+    "MissingKeywords": ["Keyword1", "Keyword2", "Keyword3"],
+    "Profile Summary": "Comprehensive evaluation of strengths, weaknesses, and improvements."
+}}
+
+    """
 
 ## streamlit app
 st.title("Smart ATS")
