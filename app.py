@@ -5,26 +5,34 @@ import PyPDF2 as pdf
 from dotenv import load_dotenv
 import json
 
-load_dotenv() ## load all our environment variables
+# Load environment variables
+load_dotenv()
 
+# Configure Google Gemini AI
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-def get_gemini_repsonse(input):
-    model=genai.GenerativeModel('gemini-pro')
-    response=model.generate_content(input)
-    return response.text
+def get_gemini_response(input_text):
+    model = genai.GenerativeModel('gemini-pro')
+    response = model.generate_content(input_text)
+    
+    try:
+        # Ensure valid JSON output
+        json_response = json.loads(response.text)
+    except json.JSONDecodeError:
+        st.error("❌ Error: Received an invalid JSON response. Please check AI output format.")
+        return None  # Return None if JSON parsing fails
+
+    return json_response
 
 def input_pdf_text(uploaded_file):
-    reader=pdf.PdfReader(uploaded_file)
-    text=""
-    for page in range(len(reader.pages)):
-        page=reader.pages[page]
-        text+=str(page.extract_text())
+    reader = pdf.PdfReader(uploaded_file)
+    text = ""
+    for page in reader.pages:
+        text += str(page.extract_text())
     return text
 
-#Prompt Template
-
- prompt_template = """Act as an **advanced ATS (Applicant Tracking System) specialist** with deep expertise in:
+# ✅ Corrected Prompt Template (No extra indentation)
+prompt_template = """Act as an **advanced ATS (Applicant Tracking System) specialist** with deep expertise in:
 - **Technical fields**
 - **Software engineering**
 - **Data science**
@@ -50,18 +58,4 @@ Return the output **strictly as a JSON object** (without extra text, explanation
     "JD Match": "XX%", 
     "MissingKeywords": ["Keyword1", "Keyword2", "Keyword3"],
     "Profile Summary": "Comprehensive evaluation of strengths, weaknesses, and improvements."
-}}"""
-
-## streamlit app
-st.title("Smart ATS")
-st.text("Improve Your Resume ATS")
-jd=st.text_area("Paste the Job Description")
-uploaded_file=st.file_uploader("Upload Your Resume",type="pdf",help="Please uplaod the pdf")
-
-submit = st.button("Submit")
-
-if submit:
-    if uploaded_file is not None:
-        text=input_pdf_text(uploaded_file)
-        response=get_gemini_repsonse(input_prompt)
-        st.subheader(response)
+}}
