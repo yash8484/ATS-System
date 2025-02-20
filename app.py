@@ -58,4 +58,4 @@ Return the output **strictly as a JSON object** (without extra text, explanation
     "JD Match": "XX%", 
     "MissingKeywords": ["Keyword1", "Keyword2", "Keyword3"],
     "Profile Summary": "Comprehensive evaluation of strengths, weaknesses, and improvements."
-}}
+}}"""
